@@ -1,9 +1,10 @@
-\documentclass[a4paper,11pt,openany]{book}
+\documentclass[a4paper,12pt,openany]{book}
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage{lmodern}
 \usepackage{hyperref}
 \usepackage{graphicx}
+\usepackage{amsmath}
 \graphicspath{ {images/} }
 \usepackage[english]{babel}
 
@@ -79,8 +80,98 @@ We bring in obstacle avoidance and wall avoidance properties so as to confine th
 \\
 We add in random noise to the motion of each bird to bring in the effect of constant stirring motion.
 
+\section{Assumptions}
+\begin{enumerate}
+	\item The birds fly with a fixed speed, lets call it $v_{max}$.
+	\item The birds can change the direction vector of velocity by a fixed maximum amount say $\Delta v_{max}$.
+	\item A bird's motion is influenced by its $n_{c}$ closest neighbours only.
+	
+\end{enumerate}
 
 \section{Quantification of the rules}
 We mathematically describe the computation for a particular bird. Let there be \emph{n} birds in the flock.\\
-Let the velocities and position vectors of birds be represented by $\vec{v_1},\vec{v_2},\vec{v_3} ... \vec{v_n}$ and $\vec{r_1},\vec{r_2},\vec{r_3} ... \vec{r_n}$ respectively. 
+Let the velocities and position vectors of birds be represented by $\vec{v_1},\vec{v_2},\vec{v_3} ... \vec{v_n}$ and $\vec{r_1},\vec{r_2},\vec{r_3} ... \vec{r_n}$ respectively. \\
+
+\noindent We define some predicates that would be useful for further computations
+
+Let us define a predicate $p$ as
+
+\begin{center}
+\begin{equation}
+	p(i,k) = 
+\[ \begin{cases} 
+      1 & \mid \vec{r_{ik}} \mid\ < \epsilon$\\
+      0 & otherwise 
+   \end{cases}
+\]
+\end{equation}
+\end{center}	
+
+Let us define a predicate $n$ as 
+\begin{center}
+\begin{equation}
+	n(i,k) = 
+\[ \begin{cases} 
+      1 & bird\; i\; \epsilon\; the\; set\; of\; n_{c}\; closest\; neighbours\; of\; bird\; k\\
+      0 & otherwise 
+   \end{cases}
+\]
+\end{equation}
+\end{center}	
+
+\noindent Now, for $k^{th}$ bird,\\
+First, we initialise $\vec{\Delta v_k} = 0$.\\
+
+
+\\
+\noindent Change in velocity due to rule of separation,
+\begin{equation}
+	\vec{\Delta v_k} += - \alpha \, p(i,k) \frac{\vec{r_{ik}} }{\mid \vec{r_{ik}} \mid ^2}
+\end{equation}
+where $\alpha$ is the hyper-parameter controlling separation.\\
+
+\noindent Change in velocity due to rule of alignment,
+\begin{equation}
+	\vec{{av}_k} = \sum_{i=1}^{n} n(i,k)\vec{v_i}
+\end{equation}
+\begin{equation}
+	\vec{\Delta v_k} += \beta \, \frac{\vec{{av}_{ik}} }{\mid \vec{{av}_{k}} \mid}
+\end{equation}
+where $\beta$ is the hyper-parameter controlling alignment.\\
+
+\noindent Change in velocity due to rule of cohesion,
+\begin{equation}
+	\vec{{ar}_k} = \sum_{i=1}^{n} n(i,k)\vec{r_i}
+\end{equation}
+\begin{equation}
+	\vec{\Delta v_k} += \gamma \, \frac{\vec{{ar}_{k}} - \vec{r_k} }{\mid \vec{{ar}_{k}} - \vec{r_k} \mid}
+\end{equation}
+where $\gamma$ is the hyper-parameter controlling cohesion.\\
+
+\noindent Introduction of noise 
+\begin{equation}
+	\vec{\Delta v_k} += \delta \, \frac{random(\vec{a}) }{\mid random(\vec{a}) \mid}
+\end{equation}
+where $\delta$ is the hyper-parameter controlling noise.\\
+
+\noindent Introduction of wall avoidance
+We model our confinement area as a sphere of radius $R$ centred at origin
+\begin{equation}
+	\vec{\Delta v_k} += -\mu \, \frac{\vec{r_k}}{R - \mid \vec{r_k} \mid}
+\end{equation}
+where $\mu$ is the hyper-parameter controlling noise.\\
+
+Subsequently, we bring into account the fact that maximum change in velocity is limited.\\
+\begin{equation}
+	scale = min(\Delta v_{max} , \mid \Delta \vec{v_k} \mid)
+\end{equation}
+We do this for all the birds and then in one pass update the direction vector for velocity for each bird.
+\begin{equation}
+	\vec{v_k} \,+=  scale \, \frac{\Delta \vec{v_k}}{\mid \Delta \vec{v_k}\mid}
+\end{equation}
+
+\noindent Finally, we update the position vectors for all the birds as
+\begin{equation}
+	\vec{r_k} \,+=  v_{max} \, \frac{\vec{v_k}}{\mid \vec{v_k}\mid}
+\end{equation}
 \end{document}
