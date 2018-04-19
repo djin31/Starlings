@@ -231,3 +231,7 @@ TSWLatexianTemp*
 
 #Custom
 #*.pdf
+
+
+################## For Node ###############
+node_modules/
