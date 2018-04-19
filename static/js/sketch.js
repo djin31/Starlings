@@ -26,6 +26,7 @@ function Flock()
 Flock.prototype.run = function()
 {
     // Run
+    
 }
 
 Flock.prototype.addBoid = function (b) {

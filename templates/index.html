@@ -1,10 +1,35 @@
 <html>
   <head>
+      <meta http-equiv="content-type" content="text/html; charset=UTF8">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.6.0/p5.js"></script>
-    <script src="/js/sketch.js"></script>
+    <link rel="stylesheet" href="/css/style.css">
   </head>
   <body>
-      hi
-      <div id="simulation"></div>
+    <div id="simulation"></div>
+    <div id="parameters" class="slidercontainer">
+      <span>α</span>
+      <input type="range" min="1" max="100" value="50" class="slider" id="alphaSelect">
+      <span id="alphaVal"></span>
+      <br />
+      <span>β</span>
+      <input type="range" min="1" max="100" value="50" class="slider" id="betaSelect">
+      <span id="betaVal"></span>
+      <br />
+      <span>γ</span>
+      <input type="range" min="1" max="100" value="50" class="slider" id="gammaSelect">
+      <span id="gammaVal"></span>
+      <br />
+      <span>δ</span>
+      <input type="range" min="1" max="100" value="50" class="slider" id="deltaSelect">
+      <span id="deltaVal"></span>
+      <br />
+      <span>μ</span>
+      <input type="range" min="1" max="100" value="50" class="slider" id="muSelect">
+      <span id="muVal"></span>
+      <br />
+    </div>
+    
+    <script src="/js/parameters.js"></script>
+    <script src="/js/sketch.js"></script>
   </body>
 </html>
