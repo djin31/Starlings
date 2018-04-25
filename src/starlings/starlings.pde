@@ -8,6 +8,8 @@ int simulationWidth = 640;
 int simulationHeight = 360;
 int slidersWidth = 200;
 
+PGraphics simViewport, sliderViewport;
+
 void setup() {
  size(840, 360,P3D);
  translate(width/2,height/2);
@@ -23,15 +25,33 @@ void setup() {
  sliders[1] = new Slider(80, 20, 40, 20, "b");
  sliders[2] = new Slider(140, 20, 40, 20, "c");
 
+ // Make two view ports
+ simViewport = createGraphics(simulationWidth, simulationHeight, P3D);
+ sliderViewport = createGraphics(slidersWidth, simulationHeight, P2D);
+
 }
 
 void draw() {
  background(200);
  flock.run();
+
+ simViewport.rotateZ(frameCount * 0.01);
+ simViewport.rotateX(frameCount * 0.01);
+ simViewport.rotateY(frameCount * 0.01);
+ //rotateX(frameCount * 0.01);
   
+  // simViewport.rectMode(CENTER);
+  // simViewport.fill(51);
+  // simViewport.stroke(255);
+  // simViewport.rect(0,0,100,100);
   // Call Sliders
+  // hint(DISABLE_DEPTH_TEST); // disable 3D
   for (Slider s:sliders)
     s.run();
+  // hint(ENABLE_DEPTH_TEST);
+
+  image(simViewport, 0, 0);
+  image(sliderViewport, simulationWidth, 0);
 }
 
 // Add a new boid into the System
@@ -133,6 +153,9 @@ class Flock {
    for (Boid b : boids) {
      b.run(boids);  // Passing the entire list of boids to each boid individually
    }
+
+   // just for test of rotation -> delete after
+  text("This is a long message", 5, 15);
  }
 
  void addBoid(Boid b) {
