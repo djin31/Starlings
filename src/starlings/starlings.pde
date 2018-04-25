@@ -3,8 +3,13 @@ Flock flock;
 // Array to hold all the sliders
 Slider[] sliders = new Slider[3];
 
+// Define the dimensions of different areas
+int simulationWidth = 640;
+int simulationHeight = 360;
+int slidersWidth = 200;
+
 void setup() {
- size(640, 360,P3D);
+ size(840, 360,P3D);
  translate(width/2,height/2);
  rotateZ(2.0);
  flock = new Flock();
@@ -14,9 +19,9 @@ void setup() {
  }
 
  // Initialise Sliders
- sliders[0] = new Slider(20, 20, 40, 20);
- sliders[1] = new Slider(80, 20, 40, 20);
- sliders[2] = new Slider(140, 20, 40, 20);
+ sliders[0] = new Slider(20, 20, 40, 20, "a");
+ sliders[1] = new Slider(80, 20, 40, 20, "b");
+ sliders[2] = new Slider(140, 20, 40, 20, "c");
 
 }
 
@@ -58,18 +63,20 @@ class Slider {
   float w, h;
   float initialY;
   boolean lock = false;
+  String label = "";
 
   // Constructors
   Slider () {
 
   }
 
-  Slider (float _x, float _y, float _w, float _h) {
-    x = _x;
+  Slider (float _x, float _y, float _w, float _h, String _label) {
+    x = _x + simulationWidth;
     y = _y;
     initialY = y;
     w = _w;
     h = _h;
+    label = _label;
   }
 
   void run() {
@@ -97,6 +104,8 @@ class Slider {
     // display text
     fill(0);
     text(int(value2) +"%", x+5, y+15);
+
+    text(label, x+5, lowerY + 15);
  
     //get mouseInput and map it
     float my = constrain(mouseY, initialY, height - h - initialY );
@@ -238,9 +247,9 @@ class Boid {
 
  // Wraparound
  void borders() {
-   if (position.x < -r) position.x = width+r;
+   if (position.x < -r) position.x = simulationWidth+r;
    if (position.y < -r) position.y = height+r;
-   if (position.x > width+r) position.x = -r;
+   if (position.x > simulationWidth +r) position.x = -r;
    if (position.y > height+r) position.y = -r;
  }
 
