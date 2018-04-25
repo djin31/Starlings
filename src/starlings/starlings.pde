@@ -1,6 +1,8 @@
 Flock flock;
 
-float FLIGHT_SPEED = 3.0f;
+float sc = 3; //scaling factor for boid
+float h = 1.0; //hue
+float FLIGHT_SPEED = 1.0f;
 float MAX_FORCE = 1.0f;
 float INFLUENCE = 7;
 float INFLUENCE_CIRCLE = 60.0f;
@@ -10,11 +12,11 @@ float RADIUS_OF_CONFINEMENT = 200.0f;
 //Hyper parameters
 int INIT_FLOCK_SIZE =200;
 int FLOCK_SIZE;
-float SEPARATION_FACTOR;
-float COHESION_FACTOR;
-float ALIGNMENT_FACTOR;
-float AVOIDANCE_FACTOR;
-float NOISE_FACTOR;
+float SEPARATION_FACTOR = 1.0f;
+float COHESION_FACTOR = 1.0f;
+float ALIGNMENT_FACTOR = 0.5f;
+float AVOIDANCE_FACTOR =0f;
+float NOISE_FACTOR = 0.5f;
 
 // Array to hold all the sliders
 Slider[] sliders = new Slider[3];
@@ -26,6 +28,7 @@ int slidersWidth = 200;
 
 void setup() {
  size(840, 360,P3D);
+ translate(width/2,height/2);
  flock = new Flock();
   FLOCK_SIZE = INIT_FLOCK_SIZE;
   for (int i = 0; i < FLOCK_SIZE; i++) {
@@ -151,7 +154,7 @@ class Flock {
       b.update();
     
     for (Boid b: boids){
-      b.borders();
+      //b.borders();
       b.render();
     }
  }
@@ -219,7 +222,7 @@ class Boid {
     //rule of wall avoidance
     temp = position;
     temp.div((position.mag() - RADIUS_OF_CONFINEMENT)/AVOIDANCE_FACTOR);
-    acceleration.add(temp);
+    //acceleration.add(temp);
     
     //rule of noise
     temp = PVector.random3D();
@@ -240,23 +243,44 @@ class Boid {
     position.add(temp);
   }
 
-  // A method that calculates and applies a steering force towards a target
-  // STEER = DESIRED MINUS VELOCITY
   void render() {
-    // Draw a triangle rotated in the direction of velocity
-    float theta = velocity.heading2D() + radians(90);
-    // heading2D() above is now heading() but leaving old syntax until Processing.js catches up
-    
-    fill(200, 100);
-    stroke(255);
     pushMatrix();
-    translate(position.x, position.y);
-    rotate(theta);
+    translate(position.x,position.y,position.z);
+    rotateY(atan2(-velocity.z,velocity.x));
+    rotateZ(asin(velocity.y/velocity.mag()));
+    stroke(h);
+    noFill();
+    noStroke();
+    fill(h);
+    //draw bird
     beginShape(TRIANGLES);
-    vertex(0, -2*2); //add some variable instead of 2
-    vertex(-2, 2*2);
-    vertex(2, 2*2);
+    vertex(3*sc,0,0);
+    vertex(-3*sc,2*sc,0);
+    vertex(-3*sc,-2*sc,0);
+    
+    vertex(3*sc,0,0);
+    vertex(-3*sc,2*sc,0);
+    vertex(-3*sc,0,2*sc);
+    
+    vertex(3*sc,0,0);
+    vertex(-3*sc,0,2*sc);
+    vertex(-3*sc,-2*sc,0);
+    
+    /* wings
+    vertex(2*sc,0,0);
+    vertex(-1*sc,0,0);
+    vertex(-1*sc,-8*sc,flap);
+    
+    vertex(2*sc,0,0);
+    vertex(-1*sc,0,0);
+    vertex(-1*sc,8*sc,flap);
+    */
+    
+    vertex(-3*sc,0,2*sc);
+    vertex(-3*sc,2*sc,0);
+    vertex(-3*sc,-2*sc,0);
     endShape();
+    //box(10);
     popMatrix();
   }
 
