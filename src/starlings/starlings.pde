@@ -1,22 +1,22 @@
 Flock flock;
 
-float sc = 3; //scaling factor for boid
+float sc = 2; //scaling factor for boid
 float h = 1.0; //hue
-float FLIGHT_SPEED = 1.0f;
+float FLIGHT_SPEED = 1f;
 float MAX_FORCE = 1.0f;
 float INFLUENCE = 7;
-float INFLUENCE_CIRCLE = 60.0f;
-float MIN_SEP = 20.0f;
+float INFLUENCE_CIRCLE = 200.0f;
+float MIN_SEP = 200.0f;
 float RADIUS_OF_CONFINEMENT = 200.0f;
 
 //Hyper parameters
 int INIT_FLOCK_SIZE =200;
 int FLOCK_SIZE;
-float SEPARATION_FACTOR = 1.0f;
-float COHESION_FACTOR = 1.0f;
-float ALIGNMENT_FACTOR = 0.5f;
+float SEPARATION_FACTOR = 2.0f;
+float COHESION_FACTOR = 1f;
+float ALIGNMENT_FACTOR = 0f;
 float AVOIDANCE_FACTOR =0f;
-float NOISE_FACTOR = 0.5f;
+float NOISE_FACTOR = 0.05f;
 
 // Array to hold all the sliders
 Slider[] sliders = new Slider[3];
@@ -28,7 +28,8 @@ int slidersWidth = 200;
 
 void setup() {
  size(840, 360,P3D);
- translate(width/2,height/2);
+ translate(420,180);
+ background(200);
  flock = new Flock();
   FLOCK_SIZE = INIT_FLOCK_SIZE;
   for (int i = 0; i < FLOCK_SIZE; i++) {
@@ -154,7 +155,7 @@ class Flock {
       b.update();
     
     for (Boid b: boids){
-      //b.borders();
+      b.borders();
       b.render();
     }
  }
@@ -221,7 +222,7 @@ class Boid {
     
     //rule of wall avoidance
     temp = position;
-    temp.div((position.mag() - RADIUS_OF_CONFINEMENT)/AVOIDANCE_FACTOR);
+    //temp.div((position.mag() - RADIUS_OF_CONFINEMENT)/AVOIDANCE_FACTOR);
     //acceleration.add(temp);
     
     //rule of noise
@@ -245,7 +246,7 @@ class Boid {
 
   void render() {
     pushMatrix();
-    translate(position.x,position.y,position.z);
+    translate(position.x+420,position.y+180);
     rotateY(atan2(-velocity.z,velocity.x));
     rotateZ(asin(velocity.y/velocity.mag()));
     stroke(h);
