@@ -5,12 +5,12 @@ float h = 1.0; //hue
 float FLIGHT_SPEED = 1f;
 float MAX_FORCE = 1.0f;
 float INFLUENCE = 7;
-float INFLUENCE_CIRCLE = 200.0f;
-float MIN_SEP = 200.0f;
-float RADIUS_OF_CONFINEMENT = 200.0f;
+float INFLUENCE_CIRCLE = 300.0f;
+float MIN_SEP = 300.0f;
+float RADIUS_OF_CONFINEMENT = 300.0f;
 
 //Hyper parameters
-int INIT_FLOCK_SIZE =200;
+int INIT_FLOCK_SIZE =20;
 int FLOCK_SIZE;
 float SEPARATION_FACTOR = 2.0f;
 float COHESION_FACTOR = 1f;
@@ -135,8 +135,8 @@ class Boid {
   Boid() {
     acceleration = new PVector(0, 0, 0);
     velocity = PVector.random3D();
-    position = PVector.random3D();
-    position.mult(random(RADIUS_OF_CONFINEMENT - 10)); // -10 in order to prevent infinite wall avoidance force at init
+    position = new PVector(random(RADIUS_OF_CONFINEMENT/3),random(RADIUS_OF_CONFINEMENT/3),random(RADIUS_OF_CONFINEMENT/3));
+    //position.mult(random(RADIUS_OF_CONFINEMENT - 10)); // -10 in order to prevent infinite wall avoidance force at init
   }
 
   void applyRules(ArrayList<Boid> boids){
@@ -179,8 +179,8 @@ class Boid {
     
     //rule of wall avoidance
     temp = position;
-    //temp.div((position.mag() - RADIUS_OF_CONFINEMENT)/AVOIDANCE_FACTOR);
-    //acceleration.add(temp);
+    temp.div(min((position.mag() - RADIUS_OF_CONFINEMENT),100)/AVOIDANCE_FACTOR);
+    acceleration.add(temp);
     
     //rule of noise
     temp = PVector.random3D();
