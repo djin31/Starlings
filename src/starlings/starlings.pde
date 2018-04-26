@@ -54,7 +54,7 @@ void setup() {
 void draw() {
  background(200);
  flock.runModel();
- translate(flock.CoM.x-flock.oldCoM.x,flock.CoM.y-flock.oldCoM.y);
+ //translate(flock.CoM.x-flock.oldCoM.x,flock.CoM.y-flock.oldCoM.y);
 
  /*simViewport.rotateZ(frameCount * 0.01);
  simViewport.rotateX(frameCount * 0.01);
@@ -118,18 +118,19 @@ class Flock {
  void runModel() {
     for (Boid b: boids)
       b.applyRules(boids);
-    oldCoM = CoM;
+    PVector temp = CoM;
     CoM = new PVector(0,0,0);
     for (Boid b: boids){
       b.update();
       CoM.add(b.position);
     }
-      
+    temp.sub(CoM);
+    
     
     
     for (Boid b: boids){
       //b.borders();
-      b.render();
+      b.render(temp);
     }
  }
 
