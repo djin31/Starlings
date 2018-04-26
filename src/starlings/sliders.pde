@@ -9,33 +9,43 @@ class Slider {
   boolean lock = false;
   String label = "";
 
+  // Range parameters
+  float low, high, lowerY;
+
+  // Value of the slider
+  float value, colorVal;
+
   // Constructors
   Slider () {
 
   }
 
-  Slider (float _x, float _y, float _w, float _h, String _label) {
+  Slider (float _x, float _y, float _w, float _h, String _label, float _low, float _high, float _initial) {
     x = _x + simulationWidth;
     y = _y;
     initialY = y;
     w = _w;
     h = _h;
     label = _label;
+
+    low = _low;
+    high = _high;
+    value = _initial;
+
+    lowerY = height - h - initialY;
+    y = map(_initial, _low, _high, lowerY, initialY);
   }
 
-  void run() {
- 
-    // bad practice have all stuff done in one method...
-    float lowerY = height - h - initialY;
+  float run() {
  
     // map value to change color..
-    float value = map(y, initialY, lowerY, 120, 255);
+    colorVal = map(y, initialY, lowerY, 120, 255);
  
     // map value to display
-    float value2 = map(value, 120, 255, 100, 0);
+    value = map(colorVal, 120, 255, high, low);
  
     //set color as it changes
-    color c = color(value);
+    color c = color(colorVal);
     fill(c);
  
     // draw base line
@@ -47,13 +57,16 @@ class Slider {
  
     // display text
     fill(0);
-    text(int(value2) +"%", x+5, y+15);
+    text(value, x+5, y+15);
 
-    text(label, x+5, lowerY + 15);
+    text(label, x-5, lowerY + 35);
  
     //get mouseInput and map it
     float my = constrain(mouseY, initialY, height - h - initialY );
     if (lock) y = my;
+
+    // Return the value
+    return value;
   }
  
   // is mouse ove knob?

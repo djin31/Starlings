@@ -24,12 +24,12 @@ Slider[] sliders = new Slider[5];
 // Define the dimensions of different areas
 int simulationWidth = 640;
 int simulationHeight = 360;
-int slidersWidth = 320;
+int slidersWidth = 360;
 
 PGraphics simViewport, sliderViewport;
 
 void setup() {
- size(960, 360,P3D);
+ size(1000, 360,P3D);
  translate(420,180);
  background(200);
  flock = new Flock();
@@ -39,11 +39,11 @@ void setup() {
   }
 
  // Initialise Sliders
- sliders[0] = new Slider(20, 20, 40, 20, "Seperation");
- sliders[1] = new Slider(80, 20, 40, 20, "Cohesion");
- sliders[2] = new Slider(140, 20, 40, 20, "Alignment");
- sliders[3] = new Slider(200, 20, 40, 20, "Avoidance");
- sliders[4] = new Slider(260, 20, 40, 20, "Noise");
+ sliders[0] = new Slider(20, 20, 40, 20, "Seperation", 0.0f, 4.0f, 2.0f);
+ sliders[1] = new Slider(90, 20, 40, 20, "Cohesion", 0.0f, 2.0f, 1.0f);
+ sliders[2] = new Slider(160, 20, 40, 20, "Alignment", 0.0f, 1.0f, 0.0f);
+ sliders[3] = new Slider(230, 20, 40, 20, "Avoidance", 0.0f, 1.0f, 0.0f);
+ sliders[4] = new Slider(300, 20, 40, 20, "Noise",0.0f, 0.5f, 0.05f);
 
  // Make two view ports
  //simViewport = createGraphics(simulationWidth, simulationHeight, P3D);
@@ -66,9 +66,16 @@ void draw() {
   // simViewport.rect(0,0,100,100);
   // Call Sliders
   // hint(DISABLE_DEPTH_TEST); // disable 3D
-  for (Slider s:sliders)
-    s.run();
+  // for (Slider s:sliders)
+    // s.run();
   // hint(ENABLE_DEPTH_TEST);
+
+  // Run the sliders and update parameters
+  SEPARATION_FACTOR = sliders[0].run();
+  COHESION_FACTOR = sliders[1].run();
+  ALIGNMENT_FACTOR = sliders[2].run();
+  AVOIDANCE_FACTOR = sliders[3].run();
+  NOISE_FACTOR = sliders[4].run();
 
   //image(simViewport, 0, 0);
   //image(sliderViewport, simulationWidth, 0);
