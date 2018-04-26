@@ -114,12 +114,13 @@ class Flock {
  void runModel() {
     for (Boid b: boids)
       b.applyRules(boids);
-      
+    
     for (Boid b: boids)
       b.update();
     
+    
     for (Boid b: boids){
-      b.borders();
+      //b.borders();
       b.render();
     }
  }
@@ -210,7 +211,7 @@ class Boid {
 
   void render() {
     pushMatrix();
-    translate(position.x,position.y);
+    translate(position.x+300,position.y+180);
     rotateY(atan2(-velocity.z,velocity.x));
     rotateZ(asin(velocity.y/velocity.mag()));
     stroke(h);
