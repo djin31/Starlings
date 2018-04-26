@@ -6,15 +6,15 @@ float FLIGHT_SPEED = 1f;
 float MAX_FORCE = 1.0f;
 float INFLUENCE = 7;
 float INFLUENCE_CIRCLE = 300.0f;
-float MIN_SEP = 300.0f;
-float RADIUS_OF_CONFINEMENT = 300.0f;
+float MIN_SEP = 30.0f;
+float RADIUS_OF_CONFINEMENT = 400.0f;
 
 //Hyper parameters
-int INIT_FLOCK_SIZE =20;
+int INIT_FLOCK_SIZE =200;
 int FLOCK_SIZE;
 float SEPARATION_FACTOR = 2.0f;
 float COHESION_FACTOR = 1f;
-float ALIGNMENT_FACTOR = 0f;
+float ALIGNMENT_FACTOR = 0.1f;
 float AVOIDANCE_FACTOR =0f;
 float NOISE_FACTOR = 0.05f;
 
@@ -39,10 +39,10 @@ void setup() {
   }
 
  // Initialise Sliders
- sliders[0] = new Slider(20, 20, 40, 20, "Seperation", 0.0f, 4.0f, 2.0f);
- sliders[1] = new Slider(90, 20, 40, 20, "Cohesion", 0.0f, 2.0f, 1.0f);
+ sliders[0] = new Slider(20, 20, 40, 20, "Seperation", 0.0f, 4.0f, 3.0f);
+ sliders[1] = new Slider(90, 20, 40, 20, "Cohesion", 0.0f, 2.0f, 0.1f);
  sliders[2] = new Slider(160, 20, 40, 20, "Alignment", 0.0f, 1.0f, 0.0f);
- sliders[3] = new Slider(230, 20, 40, 20, "Avoidance", 0.0f, 1.0f, 0.0f);
+ sliders[3] = new Slider(230, 20, 40, 20, "Avoidance", 0.0f, 1.0f, 0.05f);
  sliders[4] = new Slider(300, 20, 40, 20, "Noise",0.0f, 0.5f, 0.05f);
 
  // Make two view ports
@@ -119,7 +119,7 @@ class Flock {
       b.update();
     
     for (Boid b: boids){
-      // b.borders();
+      b.borders();
       b.render();
     }
  }
@@ -186,8 +186,8 @@ class Boid {
     
     //rule of wall avoidance
     temp = position;
-    temp.div(min((position.mag() - RADIUS_OF_CONFINEMENT),100)/AVOIDANCE_FACTOR);
-    acceleration.add(temp);
+   // temp.div(min((position.mag() - RADIUS_OF_CONFINEMENT),100)/AVOIDANCE_FACTOR);
+    //acceleration.add(temp);
     
     //rule of noise
     temp = PVector.random3D();
@@ -210,7 +210,7 @@ class Boid {
 
   void render() {
     pushMatrix();
-    translate(position.x+420,position.y+180);
+    translate(position.x,position.y);
     rotateY(atan2(-velocity.z,velocity.x));
     rotateZ(asin(velocity.y/velocity.mag()));
     stroke(h);
