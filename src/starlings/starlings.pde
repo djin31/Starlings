@@ -44,8 +44,8 @@ void setup() {
  sliders[2] = new Slider(140, 20, 40, 20, "c");
 
  // Make two view ports
- simViewport = createGraphics(simulationWidth, simulationHeight, P3D);
- sliderViewport = createGraphics(slidersWidth, simulationHeight, P2D);
+ //simViewport = createGraphics(simulationWidth, simulationHeight, P3D);
+ //sliderViewport = createGraphics(slidersWidth, simulationHeight, P2D);
 
 }
 
@@ -53,9 +53,9 @@ void draw() {
  background(200);
  flock.runModel();
 
- simViewport.rotateZ(frameCount * 0.01);
+ /*simViewport.rotateZ(frameCount * 0.01);
  simViewport.rotateX(frameCount * 0.01);
- simViewport.rotateY(frameCount * 0.01);
+ simViewport.rotateY(frameCount * 0.01);*/
  //rotateX(frameCount * 0.01);
   
   // simViewport.rectMode(CENTER);
@@ -68,8 +68,8 @@ void draw() {
     s.run();
   // hint(ENABLE_DEPTH_TEST);
 
-  image(simViewport, 0, 0);
-  image(sliderViewport, simulationWidth, 0);
+  //image(simViewport, 0, 0);
+  //image(sliderViewport, simulationWidth, 0);
 }
 
 // Add a new boid into the System
