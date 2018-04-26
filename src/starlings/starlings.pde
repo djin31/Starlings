@@ -54,6 +54,7 @@ void setup() {
 void draw() {
  background(200);
  flock.runModel();
+ translate(flock.CoM.x-flock.oldCoM.x,flock.CoM.y-flock.oldCoM.y);
 
  /*simViewport.rotateZ(frameCount * 0.01);
  simViewport.rotateX(frameCount * 0.01);
@@ -106,17 +107,24 @@ void mouseReleased() {
 
 class Flock {
  ArrayList<Boid> boids; // An ArrayList for all the boids
+ PVector CoM;
+ PVector oldCoM;
 
  Flock() {
    boids = new ArrayList<Boid>(); // Initialize the ArrayList
+   CoM = new PVector(0,0,0);
  }
 
  void runModel() {
     for (Boid b: boids)
       b.applyRules(boids);
-    
-    for (Boid b: boids)
+    oldCoM = CoM;
+    CoM = new PVector(0,0,0);
+    for (Boid b: boids){
       b.update();
+      CoM.add(b.position);
+    }
+      
     
     
     for (Boid b: boids){
@@ -211,7 +219,7 @@ class Boid {
 
   void render() {
     pushMatrix();
-    translate(position.x+300,position.y+180);
+    translate(position.x+400,position.y+100);
     rotateY(atan2(-velocity.z,velocity.x));
     rotateZ(asin(velocity.y/velocity.mag()));
     stroke(h);
