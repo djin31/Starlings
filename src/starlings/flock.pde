@@ -19,7 +19,8 @@ class Flock {
       b.update();
       CoM.add(b.position);
     }
-    
+
+    CoM.div(FLOCK_SIZE);
     
     for (Boid b: boids){
       b.render();
@@ -36,4 +37,64 @@ class Flock {
    return boids.size();
  }
 
+ // Results / Calculations
+ float getAverageVelocity () {
+   // return average of magnitudes of velocities of boids
+   float avgVelocity = 0;
+   for (Boid b:boids) {
+     println(b.velocity.mag(), b.velocity);
+     avgVelocity += (b.velocity).mag();
+   }
+
+   return avgVelocity / FLOCK_SIZE;
+ }
+
+ float getAverageAcceleration () {
+   // return avg of mag of acc
+   float avgAcceleration = 0;
+   for (Boid b:boids) {
+     avgAcceleration += b.acceleration.mag();
+   }
+
+   return avgAcceleration / FLOCK_SIZE;
+ }
+
+ float avgDispersionFromCOM () {
+   // returns avg of displacement mag from COM
+   float avgDispersion = 0;
+   for (Boid b:boids) {
+     avgDispersion += (b.position.sub(CoM)).mag();
+   }
+
+   return avgDispersion;
+ }
+
+  float totalPower () {
+    // return total power being consumed by the flock
+    // P = F.v
+    float totPower = 0;
+    for (Boid b:boids) {
+      totPower += b.acceleration.dot(b.velocity);
+    }
+
+    return totPower;
+  }
+
+  float avgPower () {
+    // return average power per unit mass of all boids
+    // P = F.v
+
+    return this.totalPower() / FLOCK_SIZE;
+  }
+
+  float avgAngMomentum () {
+    // return average ang momentum per unit mass
+    // L = m . r * v
+    float avgAngMomentum = 0;
+    for (Boid b:boids) {
+      avgAngMomentum += (b.position.cross(b.velocity)).mag();
+    }
+
+    return avgAngMomentum / FLOCK_SIZE;
+  }
 }

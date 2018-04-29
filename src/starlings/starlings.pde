@@ -73,7 +73,13 @@ void mousePressed() {
    // The button is clicked
    flock.addBoid(new Boid());
 
-   println(flock.size());
+   println(flock.size(),
+           flock.getAverageVelocity(),
+           flock.getAverageAcceleration(),
+           flock.avgDispersionFromCOM(),
+           flock.totalPower(),
+           flock.avgPower(),
+           flock.avgAngMomentum());
  }
  
 
