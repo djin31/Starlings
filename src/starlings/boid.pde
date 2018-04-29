@@ -74,7 +74,8 @@ class Boid {
       PVector.mult(position,-1,velocity);
     else
       velocity.add(acceleration);
-    velocity.normalize();
+    if (velocity.mag()>0)
+      velocity.normalize();
     PVector temp = velocity;
     temp.mult(FLIGHT_SPEED);
     
