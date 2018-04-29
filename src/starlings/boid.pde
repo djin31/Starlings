@@ -76,8 +76,6 @@ class Boid {
       velocity.add(acceleration);
     if (velocity.mag()>0)
       velocity.normalize();
-    else
-      velocity = PVector.random3D();
     PVector temp = velocity;
     temp.mult(FLIGHT_SPEED);
     
