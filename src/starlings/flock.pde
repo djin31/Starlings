@@ -31,4 +31,9 @@ class Flock {
    boids.add(b);
  }
 
+ int size () {
+   // return number of boids
+   return boids.size();
+ }
+
 }

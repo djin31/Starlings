@@ -21,6 +21,9 @@ float NOISE_FACTOR = 0.05f;
 // Array to hold all the sliders
 Slider[] sliders = new Slider[5];
 
+// Buttons
+Button addBoidButton;
+
 // Define the dimensions of different areas
 int simulationWidth = 640;
 int simulationHeight = 360;
@@ -44,6 +47,9 @@ void setup() {
  sliders[2] = new Slider(160, 20, 40, 20, "Alignment", 0.0f, 1.0f, 0.0f);
  sliders[3] = new Slider(230, 20, 40, 20, "Avoidance", 0.0f, 1.0f, 0.05f);
  sliders[4] = new Slider(300, 20, 40, 20, "Noise",0.0f, 0.5f, 0.05f);
+
+  // Add button for adding bird
+  addBoidButton = new Button (150, 100, 50, 20);
 
  // Make two view ports
  //simViewport = createGraphics(simulationWidth, simulationHeight, P3D);
@@ -78,13 +84,22 @@ void draw() {
   AVOIDANCE_FACTOR = sliders[3].run();
   NOISE_FACTOR = sliders[4].run();
 
+  // Draw the buttons
+  addBoidButton.draw();
+
   //image(simViewport, 0, 0);
   //image(sliderViewport, simulationWidth, 0);
 }
 
 // Add a new boid into the System
 void mousePressed() {
- flock.addBoid(new Boid());
+ if (addBoidButton.isOver()) {
+   // The button is clicked
+   flock.addBoid(new Boid());
+
+   println(flock.size());
+ }
+ 
 
  // lock slider if clicked
  for (Slider s:sliders)
