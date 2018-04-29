@@ -13,19 +13,17 @@ class Flock {
  void runModel() {
     for (Boid b: boids)
       b.applyRules(boids);
-    PVector temp = CoM;
-    CoM = new PVector(0,0,0);
+
     for (Boid b: boids){
       b.update();
       CoM.add(b.position);
     }
-    temp.sub(CoM);
     
     
     
     for (Boid b: boids){
       //b.borders();
-      b.render(temp);
+      b.render();
     }
  }
 

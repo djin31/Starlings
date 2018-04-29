@@ -3,9 +3,9 @@ Flock flock;
 float sc = 2; //scaling factor for boid
 float h = 1.0; //hue
 float FLIGHT_SPEED = 1f;
-float MAX_FORCE = 1.0f;
+float MAX_FORCE = 0.2f;
 float INFLUENCE = 7;
-float INFLUENCE_CIRCLE = 300.0f;
+float INFLUENCE_CIRCLE = 200.0f;
 float MIN_SEP = 30.0f;
 float RADIUS_OF_CONFINEMENT = 400.0f;
 

@@ -51,8 +51,8 @@ class Boid {
     
     //rule of wall avoidance
     temp = position;
-   // temp.div(min((position.mag() - RADIUS_OF_CONFINEMENT),100)/AVOIDANCE_FACTOR);
-    //acceleration.add(temp);
+    //temp.mult(exp(position.mag()-RAD)*AVOIDANCE_FACTOR);
+    //acceleration.sub(temp);
     
     //rule of noise
     temp = PVector.random3D();
@@ -67,15 +67,20 @@ class Boid {
 
   // Method to update position
   void update() {
-    velocity.add(acceleration);
+    if (position.mag()>RADIUS_OF_CONFINEMENT)
+      PVector.mult(position,-1,velocity);
+    else
+      velocity.add(acceleration);
+    velocity.normalize();
     PVector temp = velocity;
     temp.mult(FLIGHT_SPEED);
     position.add(temp);
+    
   }
 
-  void render(PVector t) {
+  void render() {
     pushMatrix();
-    translate(position.x+400 - t.x,position.y+100 -t.y);
+    translate(position.x+400,position.y+100);
     rotateY(atan2(-velocity.z,velocity.x));
     rotateZ(asin(velocity.y/velocity.mag()));
     stroke(h);
