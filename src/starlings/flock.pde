@@ -20,9 +20,7 @@ class Flock {
     }
     
     
-    
     for (Boid b: boids){
-      //b.borders();
       b.render();
     }
  }

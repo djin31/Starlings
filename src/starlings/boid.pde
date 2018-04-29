@@ -8,17 +8,21 @@ class Boid {
     acceleration = new PVector(0, 0, 0);
     velocity = PVector.random3D();
     position = new PVector(random(RADIUS_OF_CONFINEMENT/3),random(RADIUS_OF_CONFINEMENT/3),random(RADIUS_OF_CONFINEMENT/3));
-    //position.mult(random(RADIUS_OF_CONFINEMENT - 10)); // -10 in order to prevent infinite wall avoidance force at init
+    
   }
 
   void applyRules(ArrayList<Boid> boids){
-    float [] distance = new float[FLOCK_SIZE];
+    
     acceleration = new PVector(0, 0, 0);
     
+    //compute distance array for the boids
+    float [] distance = new float[FLOCK_SIZE];
     for (int i =0; i<FLOCK_SIZE ; i++){
       distance[i] = PVector.dist(position, boids.get(i).position);
     }
+    
     PVector temp = new PVector(0,0,0);
+    
     //rule of separation
     for (int i =0; i<FLOCK_SIZE ; i++){
       if (distance[i]>0 && distance[i]<MIN_SEP){
@@ -49,10 +53,7 @@ class Boid {
     acceleration.add(avg_v);
     acceleration.add(avg_r);
     
-    //rule of wall avoidance
-    temp = position;
-    //temp.mult(exp(position.mag()-RAD)*AVOIDANCE_FACTOR);
-    //acceleration.sub(temp);
+    //rule of wall avoidance pushed to update module
     
     //rule of noise
     temp = PVector.random3D();
@@ -67,63 +68,61 @@ class Boid {
 
   // Method to update position
   void update() {
-    if (position.mag()>RADIUS_OF_CONFINEMENT)
+    
+    if (position.mag()>RADIUS_OF_CONFINEMENT)    //implements wall avoidance
       PVector.mult(position,-1,velocity);
     else
       velocity.add(acceleration);
     velocity.normalize();
     PVector temp = velocity;
     temp.mult(FLIGHT_SPEED);
-    position.add(temp);
+    
+    //update position
+    position.add(temp);          
     
   }
 
   void render() {
+    
     pushMatrix();
-    translate(position.x+400,position.y+100);
+    translate(position.x+width/3,position.y+height/2);
     rotateY(atan2(-velocity.z,velocity.x));
     rotateZ(asin(velocity.y/velocity.mag()));
-    stroke(h);
-    noFill();
     noStroke();
-    fill(h);
+    fill(25,25,112);
+    
     //draw bird
+    float flap = pow(-1,frameCount/100)/2;
     beginShape(TRIANGLES);
-    vertex(3*sc,0,0);
-    vertex(-3*sc,2*sc,0);
-    vertex(-3*sc,-2*sc,0);
     
-    vertex(3*sc,0,0);
-    vertex(-3*sc,2*sc,0);
-    vertex(-3*sc,0,2*sc);
-    
-    vertex(3*sc,0,0);
-    vertex(-3*sc,0,2*sc);
-    vertex(-3*sc,-2*sc,0);
-    
-    /* wings
-    vertex(2*sc,0,0);
-    vertex(-1*sc,0,0);
-    vertex(-1*sc,-8*sc,flap);
-    
-    vertex(2*sc,0,0);
-    vertex(-1*sc,0,0);
-    vertex(-1*sc,8*sc,flap);
-    */
-    
-    vertex(-3*sc,0,2*sc);
-    vertex(-3*sc,2*sc,0);
-    vertex(-3*sc,-2*sc,0);
+    vertex(3*SCALE,0,0);
+    vertex(-3*SCALE,2.5*SCALE,0);
+    vertex(-3*SCALE,-2.5*SCALE,0);
+
+    vertex(3*SCALE,0,0);
+    vertex(-3*SCALE,2.5*SCALE,0);
+    vertex(-3*SCALE,0,2.5*SCALE);
+
+    vertex(3*SCALE,0,0);
+    vertex(-3*SCALE,0,2.5*SCALE);
+    vertex(-3*SCALE,-2.5*SCALE,0);
+
+    // wings
+    vertex(2*SCALE, 0, 0);
+    vertex(-1*SCALE, 0, 0);
+    vertex(-1*SCALE, -8*SCALE, flap);
+
+    vertex(2*SCALE, 0, 0);
+    vertex(-1*SCALE, 0, 0);
+    vertex(-1*SCALE, 8*SCALE, flap);
+
+
+    vertex(-3*SCALE, 0, 2.5*SCALE);
+    vertex(-3*SCALE, 2.5*SCALE, 0);
+    vertex(-3*SCALE, -2.5*SCALE, 0);
     endShape();
     //box(10);
     popMatrix();
   }
 
-  // Wraparound
-  void borders() {
-    if (position.x < -2) position.x = width+2;
-    if (position.y < -2) position.y = height+2;
-    if (position.x > width+2) position.x = -2;
-    if (position.y > height+2) position.y = -2;
-  }
 }
