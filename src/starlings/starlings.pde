@@ -74,7 +74,8 @@ void draw() {
         flock.avgDispersionFromCOM(),
         flock.totalPower(),
         flock.avgPower(),
-        flock.avgAngMomentum());
+        flock.avgAngMomentum()
+        );
   }
 }
 

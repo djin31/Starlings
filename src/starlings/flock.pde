@@ -63,7 +63,8 @@ class Flock {
    // returns avg of displacement mag from COM
    float avgDispersion = 0;
    for (Boid b:boids) {
-     avgDispersion += (b.position.sub(CoM)).mag();
+     PVector tmp = new PVector (b.position.x, b.position.y, b.position.z);
+     avgDispersion += (tmp.sub(CoM)).mag();
    }
 
    return avgDispersion;
