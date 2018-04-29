@@ -31,4 +31,9 @@ class Flock {
    FLOCK_SIZE++;
  }
 
+ int size () {
+   // return number of boids
+   return boids.size();
+ }
+
 }
