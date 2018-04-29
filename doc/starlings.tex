@@ -28,6 +28,13 @@
 % Author
 \author{\textsc{Deepanshu Jindal} \\ \textsc{Arpan Mangal}}
 
+\hypersetup{
+  colorlinks   = true, %Colours links instead of ugly boxes
+  urlcolor     = blue, %Colour for external hyperlinks
+  linkcolor    = black,%brown, %191970, %Colour of internal links
+  citecolor   = red %Colour of citations
+}
+
 \begin{document}
 
 \frontmatter
@@ -90,7 +97,7 @@ Let us define a predicate $p$ as
 \begin{equation}
 	p(i,k) = 
 \[ \begin{cases} 
-      1 & \mid \vec{r_{ik}} \mid\ < \epsilon$\\
+      1 & \mid \vec{r_{ik}} \mid\ < \epsilon\\
       0 & otherwise 
    \end{cases}
 \]
@@ -163,6 +170,57 @@ We do this for all the birds and then in one pass update the direction vector fo
 \noindent Finally, we update the position vectors for all the birds as
 \begin{equation}
 	\vec{r_k} \,+=  v_{max} \, \frac{\vec{v_k}}{\mid \vec{v_k}\mid}
+\end{equation}
+
+\section{Measurements}
+The main objective of our realistic simulation was to measure typical values like power used by each bird, angular momentum and force that each bird has to withstand in a flight ritual. We describe below the mathematics pertaining to some measurements:
+
+\subsection*{Average Power and Energy}
+Consider a bird $i$. Given its mass $m_i$, its acceleration vector $\vec{a_i}$, and velocity vector $\vec{v_i}$, the power exerted, $P$ by it is given by:
+
+\begin{equation}
+P_i = \vec{F_i}\cdot\vec{v_i}
+\end{equation}
+
+or, \begin{equation}
+P_i = m_i.\vec{a_i}\cdot\vec{v_i}
+\end{equation}
+
+The average power exerted by a typical bird of the flock is given by:
+\begin{equation}
+P_{avg} = \frac{\sum_{i=1}^{n} P_i}{n}
+\end{equation}
+
+To get the average energy spent by each bird, we will simply integrate power over the time of simulation, $T$. 
+\begin{equation}
+E_{avg} = \int_{0}^{T} P_{avg}(t) dt
+\end{equation}
+
+Assuming calculation of average power, $P_{avg}$ at discreate intervals of time, $\Delta{t}$ in our simulation, average energy $E_{avg}$ is given by:
+\begin{equation}
+E_{avg} = \sum_{t=0}^{T/\Delta{t}} P_{avg}(t) \Delta{t}
+\end{equation}
+
+\subsection*{Average Angular Momentum}
+Angular momentum of a typical bird $i$, having mass $m_i$, position vector $r_i$ (w.r.t. origin), and velocity vector $v_i$ is given by:
+\begin{equation}
+\vec{L_i} = m_i . \vec{r_i} \times \vec{v_i}
+\end{equation} 
+
+The average magnitude of angular momentum of a bird is given by:
+\begin{equation}
+|\vec{L_{avg}}| = \sum_{i=0}^{n} |\vec{L_i}| / n
+\end{equation}
+
+\subsection*{Average Force}
+The force being withstood by a typical bird, $i$ given its mass $m_i$ and acceleration vector $a_i$ is given by:
+\begin{equation}
+\vec{F_i} = m_i . \vec{a_i}
+\end{equation}
+
+The average magnitude of force being experienced by a typical bird is given by:
+\begin{equation}
+|\vec{F_{avg}}| = \sum_{i=0}^{n} |\vec{F_i}| / n
 \end{equation}
 
 \chapter{Functional Specification}
