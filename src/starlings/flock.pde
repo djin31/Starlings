@@ -27,6 +27,7 @@ class Flock {
 
  void addBoid(Boid b) {
    boids.add(b);
+   FLOCK_SIZE++;
  }
 
 }

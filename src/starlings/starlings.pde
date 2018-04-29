@@ -1,8 +1,7 @@
 Flock flock;
 
 float SCALE = 1.5; //scaling factor for boid
-float h = 1.0; //hue
-float FLIGHT_SPEED = 1.5f;
+float FLIGHT_SPEED = 1.2f;
 float MAX_FORCE = 0.2f;
 float INFLUENCE = 7;
 float INFLUENCE_CIRCLE = 100.0f;
@@ -39,7 +38,7 @@ void setup() {
   }
 
  // Initialise Sliders
- sliders[0] = new Slider(20, 20, 40, 20, "Seperation", 0.5f, 5.0f, 3.0f);
+ sliders[0] = new Slider(20, 20, 40, 20, "Seperation", 1.0f, 5.0f, 3.0f);
  sliders[1] = new Slider(90, 20, 40, 20, "Cohesion", 0.0f, 2.0f, 0.293f);
  sliders[2] = new Slider(160, 20, 40, 20, "Alignment", 0.0f, 0.5f, 0.05f);
  sliders[3] = new Slider(230, 20, 40, 20, "Avoidance", 0.0f, 1.0f, 0.05f);
