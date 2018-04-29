@@ -20,15 +20,14 @@ class Flock {
     }
     
     
-    
     for (Boid b: boids){
-      //b.borders();
       b.render();
     }
  }
 
  void addBoid(Boid b) {
    boids.add(b);
+   FLOCK_SIZE++;
  }
 
  int size () {

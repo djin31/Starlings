@@ -1,13 +1,12 @@
 Flock flock;
 
-float sc = 2; //scaling factor for boid
-float h = 1.0; //hue
-float FLIGHT_SPEED = 1.5f;
+float SCALE = 1.5; //scaling factor for boid
+float FLIGHT_SPEED = 1.2f;
 float MAX_FORCE = 0.2f;
 float INFLUENCE = 7;
 float INFLUENCE_CIRCLE = 100.0f;
 float MIN_SEP = 50.0f;
-float RADIUS_OF_CONFINEMENT = 300.0f;
+float RADIUS_OF_CONFINEMENT = 350.0f;
 
 //Hyper parameters
 int INIT_FLOCK_SIZE =300;
@@ -32,7 +31,7 @@ int slidersWidth = 360;
 PGraphics simViewport, sliderViewport;
 
 void setup() {
- size(1000, 360,P3D);
+ size(1000, 560,P3D);
  translate(420,180);
  background(200);
  flock = new Flock();
@@ -42,40 +41,19 @@ void setup() {
   }
 
  // Initialise Sliders
- sliders[0] = new Slider(20, 20, 40, 20, "Seperation", 0.0f, 4.0f, 3.0f);
- sliders[1] = new Slider(90, 20, 40, 20, "Cohesion", 0.0f, 2.0f, 0.1f);
- sliders[2] = new Slider(160, 20, 40, 20, "Alignment", 0.0f, 1.0f, 0.0f);
+ sliders[0] = new Slider(20, 20, 40, 20, "Seperation", 1.0f, 5.0f, 3.0f);
+ sliders[1] = new Slider(90, 20, 40, 20, "Cohesion", 0.0f, 2.0f, 0.293f);
+ sliders[2] = new Slider(160, 20, 40, 20, "Alignment", 0.0f, 0.5f, 0.05f);
  sliders[3] = new Slider(230, 20, 40, 20, "Avoidance", 0.0f, 1.0f, 0.05f);
  sliders[4] = new Slider(300, 20, 40, 20, "Noise",0.0f, 0.5f, 0.05f);
 
   // Add button for adding bird
   addBoidButton = new Button (150, 100, 50, 20);
-
- // Make two view ports
- //simViewport = createGraphics(simulationWidth, simulationHeight, P3D);
- //sliderViewport = createGraphics(slidersWidth, simulationHeight, P2D);
-
 }
 
 void draw() {
- background(200);
+ background(175,238,238);
  flock.runModel();
- //translate(flock.CoM.x-flock.oldCoM.x,flock.CoM.y-flock.oldCoM.y);
-
- /*simViewport.rotateZ(frameCount * 0.01);
- simViewport.rotateX(frameCount * 0.01);
- simViewport.rotateY(frameCount * 0.01);*/
- //rotateX(frameCount * 0.01);
-  
-  // simViewport.rectMode(CENTER);
-  // simViewport.fill(51);
-  // simViewport.stroke(255);
-  // simViewport.rect(0,0,100,100);
-  // Call Sliders
-  // hint(DISABLE_DEPTH_TEST); // disable 3D
-  // for (Slider s:sliders)
-    // s.run();
-  // hint(ENABLE_DEPTH_TEST);
 
   // Run the sliders and update parameters
   SEPARATION_FACTOR = sliders[0].run();
@@ -86,9 +64,6 @@ void draw() {
 
   // Draw the buttons
   addBoidButton.draw();
-
-  //image(simViewport, 0, 0);
-  //image(sliderViewport, simulationWidth, 0);
 }
 
 // Add a new boid into the System
