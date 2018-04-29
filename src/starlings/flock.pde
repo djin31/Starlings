@@ -8,6 +8,7 @@ class Flock {
  Flock() {
    boids = new ArrayList<Boid>(); // Initialize the ArrayList
    CoM = new PVector(0,0,0);
+   FLOCK_SIZE=0;
  }
 
  void runModel() {

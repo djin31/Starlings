@@ -7,7 +7,8 @@ class Boid {
   Boid() {
     acceleration = new PVector(0, 0, 0);
     velocity = PVector.random3D();
-    position = new PVector(random(RADIUS_OF_CONFINEMENT/3),random(RADIUS_OF_CONFINEMENT/3),random(RADIUS_OF_CONFINEMENT/3));
+    position = PVector.random3D();
+    position.mult(random(RADIUS_OF_CONFINEMENT));
     
   }
 

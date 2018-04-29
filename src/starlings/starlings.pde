@@ -11,12 +11,13 @@ float RADIUS_OF_CONFINEMENT = 350.0f;
 //Hyper parameters
 int INIT_FLOCK_SIZE =300;
 int FLOCK_SIZE;
-float SEPARATION_FACTOR = 2.0f;
-float COHESION_FACTOR = 1f;
-float ALIGNMENT_FACTOR = 0.1f;
-float AVOIDANCE_FACTOR =0f;
-float NOISE_FACTOR = 0.05f;
+float SEPARATION_FACTOR;
+float COHESION_FACTOR;
+float ALIGNMENT_FACTOR;
+float AVOIDANCE_FACTOR;
+float NOISE_FACTOR;
 
+color top,bottom;
 // Array to hold all the sliders
 Slider[] sliders = new Slider[5];
 
@@ -30,23 +31,23 @@ PGraphics simViewport, sliderViewport;
 void setup() {
  size(1000, 560,P3D);
  translate(420,180);
- background(200);
+ top = color(153,255,255);
+ bottom = color(175,238,238);
  flock = new Flock();
-  FLOCK_SIZE = INIT_FLOCK_SIZE;
-  for (int i = 0; i < FLOCK_SIZE; i++) {
+ for (int i = 0; i < INIT_FLOCK_SIZE; i++) {
     flock.addBoid(new Boid());
   }
 
  // Initialise Sliders
  sliders[0] = new Slider(20, 20, 40, 20, "Seperation", 1.0f, 5.0f, 3.0f);
  sliders[1] = new Slider(90, 20, 40, 20, "Cohesion", 0.0f, 2.0f, 0.293f);
- sliders[2] = new Slider(160, 20, 40, 20, "Alignment", 0.0f, 0.5f, 0.05f);
+ sliders[2] = new Slider(160, 20, 40, 20, "Alignment", 0.0f, 0.5f, 0.02f);
  sliders[3] = new Slider(230, 20, 40, 20, "Avoidance", 0.0f, 1.0f, 0.05f);
  sliders[4] = new Slider(300, 20, 40, 20, "Noise",0.0f, 0.5f, 0.05f);
 }
 
 void draw() {
- background(175,238,238);
+ background(bottom);
  flock.runModel();
 
   // Run the sliders and update parameters
@@ -75,5 +76,17 @@ void mouseReleased() {
   for (Slider s:sliders)
   {
     s.lock = false;
+  }
+}
+
+void setGradient(color c1, color c2 ) {
+
+  noFill();
+
+  for (int i = 0; i <= height; i++) {
+    float inter = map(i, 0, height, 0, 1);
+    color c = lerpColor(c1, c2, inter);
+    stroke(c);
+    line(0, i, width, i);
   }
 }

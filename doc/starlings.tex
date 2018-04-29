@@ -22,23 +22,11 @@
   {\par\normalfont\hfill--\ \chapquote@author\hspace*{\@tempdima}\par\bigskip}
 \makeatother
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% First page of book which contains 'stuff' like: %
-%  - Book title, subtitle                         %
-%  - Book author name                             %
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Book's title and subtitle
 \title{\Huge \textbf{Simulating Starlings Murmuration}}\\ 
 % Author
 \author{\textsc{Deepanshu Jindal} \\ \textsc{Arpan Mangal}}
-
-\hypersetup{
-  colorlinks   = true, %Colours links instead of ugly boxes
-  urlcolor     = blue, %Colour for external hyperlinks
-  linkcolor    = black,%brown, %191970, %Colour of internal links
-  citecolor   = red %Colour of citations
-}
 
 \begin{document}
 
@@ -49,9 +37,6 @@
 
 \mainmatter
 
-%%%%%%%%%%%
-% Preface %
-%%%%%%%%%%%
 \chapter*{Preface}
 This documents details the mathematical modelling and functional design for an application for simulating the flocking behaviour shown by Starlings: often known as Starlings murmuration.\\
 \begin{figure}[h]
@@ -194,21 +179,20 @@ The boids will be simulated in 3D, according to the mathematical model as descri
 
 \subsection*{Features}
 
-The simulation starts with display of an initial number of boids. These are simulated according to some default value of hyper-parameters. There is a spherical wall enclosing the simulation space, which acts like barrier which the boids are supposed to avoid.
+The simulation starts with display of an initial number of boids. These are simulated according to some default value of hyper-parameters. There is a spherical wall enclosing the simulation space, which acts like confinement area for the boids.
 
 The user can interact with the simulation in multiple ways:
 \begin{itemize}
 
 \item Add Boid(s) into the simulation with a mouse click
-\item Add Obstacle(s) into the simulation with a mouse click
 \item Tweak various hyper-parameters. These include:
 \begin{itemize}
-\item Seperation Factor
+\item Separation Factor
 \item Cohesion Factor
 \item Alignment Factor
-\item Avoidance Factor
 \item Noise Factor
 \item Speed of boids
+\item Maximum acceleration that the boids can produce
 \end{itemize} 
 
 \item Rotate the simulation view to be able to see the simulation from various angles.
@@ -219,7 +203,7 @@ The user can interact with the simulation in multiple ways:
 The user will be constantly be shown the following results. He / she can tweak the hyper-parameters to see how the simulation will appear and see the corresponding changes in the result values.
 \begin{itemize}
 \item \textbf{Power}: The power being consumed by an average bird as well as the power consumed by the complete flock at the particular instant of time.
-\item \textbf{Force}: The average magnitude of force being exerted on each bird, which includes force due to acceleration, centrifugal force, and gravity.
+\item \textbf{Acceleration}: The average magnitude of acceleration being produced by each bird.
 \item \textbf{Energy}: The total energy consumed by an average bird from the start of the simulation.
 \item \textbf{Angular Momentum}: The average magnitude of angular momentum of a typical bird.
 \end{itemize}
