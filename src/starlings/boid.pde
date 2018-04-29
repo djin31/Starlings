@@ -34,7 +34,7 @@ class Boid {
     PVector avg_r = new PVector(0,0,0);
     int count =0;
     for (int i= 0; i<FLOCK_SIZE; i++){
-     if (distance[i]>0 && distance[i]<INFLUENCE_CIRCLE){
+     if (distance[i]>0 && distance[i]<INFLUENCE_CIRCLE && count<INFLUENCE){
        avg_v.add(boids.get(i).velocity);
        avg_r.add(boids.get(i).position);
        count++;

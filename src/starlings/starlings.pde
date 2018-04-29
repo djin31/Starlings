@@ -2,15 +2,15 @@ Flock flock;
 
 float sc = 2; //scaling factor for boid
 float h = 1.0; //hue
-float FLIGHT_SPEED = 1f;
+float FLIGHT_SPEED = 1.5f;
 float MAX_FORCE = 0.2f;
 float INFLUENCE = 7;
-float INFLUENCE_CIRCLE = 200.0f;
-float MIN_SEP = 30.0f;
-float RADIUS_OF_CONFINEMENT = 400.0f;
+float INFLUENCE_CIRCLE = 100.0f;
+float MIN_SEP = 50.0f;
+float RADIUS_OF_CONFINEMENT = 300.0f;
 
 //Hyper parameters
-int INIT_FLOCK_SIZE =200;
+int INIT_FLOCK_SIZE =300;
 int FLOCK_SIZE;
 float SEPARATION_FACTOR = 2.0f;
 float COHESION_FACTOR = 1f;
