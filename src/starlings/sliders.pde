@@ -13,7 +13,8 @@ class Slider {
   float low, high, lowerY;
 
   // Value of the slider
-  float value, colorVal;
+  float value, mapVal;
+  color highColor = color (25,25,112), lowColor = color(175,238,238);
 
   // Constructors
   Slider () {
@@ -38,21 +39,27 @@ class Slider {
 
   float run() {
  
-    // map value to change color..
-    colorVal = map(y, initialY, lowerY, 120, 255);
+    // map value to 1 to 100..
+    mapVal = map(y, initialY, lowerY, 0, 100);
  
     // map value to display
-    value = map(colorVal, 120, 255, high, low);
- 
+    value = map(mapVal, 0, 100, high, low);
+
+    // println(red(lowColor));
+    // Find the corresponding color
+    float red = map(mapVal, 0, 100, red(lowColor), red(highColor));
+    float green = map(mapVal, 0, 100, green(lowColor), green(highColor));
+    float blue = map(mapVal, 0, 100, blue(lowColor), blue(highColor));
+
     //set color as it changes
-    color c = color(colorVal);
+    color c = color (red, green, blue);
     fill(c);
  
     // draw base line
     rect(x, initialY, 4, lowerY);
  
     // draw knob
-    fill(200);
+    fill(153,255,255);
     rect(x, y, w, h);
  
     // display text

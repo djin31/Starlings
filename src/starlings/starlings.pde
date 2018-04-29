@@ -32,7 +32,7 @@ int slidersWidth = 360;
 PGraphics simViewport, sliderViewport;
 
 void setup() {
- size(1000, 560,P3D);
+ size(1400, 860,P3D);
  translate(420,180);
  top = color(153,255,255);
  bottom = color(175,238,238);
