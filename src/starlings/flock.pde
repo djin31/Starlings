@@ -42,7 +42,7 @@ class Flock {
    // return average of magnitudes of velocities of boids
    float avgVelocity = 0;
    for (Boid b:boids) {
-     println(b.velocity.mag(), b.velocity);
+    //  if (Float.isNaN(b.velocity.mag())) continue;
      avgVelocity += (b.velocity).mag();
    }
 

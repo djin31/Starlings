@@ -65,6 +65,17 @@ void draw() {
 
   // Draw the buttons
   addBoidButton.draw();
+
+  // Print the Measurements each 100th frame for less computation
+  if (frameCount % 100 == 0) {
+    println(flock.size(),
+        flock.getAverageVelocity(),
+        flock.getAverageAcceleration(),
+        flock.avgDispersionFromCOM(),
+        flock.totalPower(),
+        flock.avgPower(),
+        flock.avgAngMomentum());
+  }
 }
 
 // Add a new boid into the System
@@ -72,14 +83,6 @@ void mousePressed() {
  if (addBoidButton.isOver()) {
    // The button is clicked
    flock.addBoid(new Boid());
-
-   println(flock.size(),
-           flock.getAverageVelocity(),
-           flock.getAverageAcceleration(),
-           flock.avgDispersionFromCOM(),
-           flock.totalPower(),
-           flock.avgPower(),
-           flock.avgAngMomentum());
  }
  
 
