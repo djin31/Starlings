@@ -49,11 +49,12 @@ class Boid {
     avg_r.div(count);
     avg_v.sub(velocity);
     avg_r.sub(position);
-    avg_v.mult(ALIGNMENT_FACTOR/avg_v.mag());
-    avg_r.mult(COHESION_FACTOR/avg_r.mag());
-    acceleration.add(avg_v);
-    acceleration.add(avg_r);
-    
+    if (avg_v.mag()>0 && avg_r.mag()>0){
+      avg_v.mult(ALIGNMENT_FACTOR/avg_v.mag());
+      avg_r.mult(COHESION_FACTOR/avg_r.mag());
+      acceleration.add(avg_v);
+      acceleration.add(avg_r);
+    }  
     //rule of wall avoidance pushed to update module
     
     //rule of noise
@@ -71,7 +72,7 @@ class Boid {
   void update() {
     
     if (position.mag()>RADIUS_OF_CONFINEMENT)    //implements wall avoidance
-      PVector.mult(position,-1,velocity);
+      PVector.mult(position,(-1.0f),velocity);
     else
       velocity.add(acceleration);
     if (velocity.mag()>0)
