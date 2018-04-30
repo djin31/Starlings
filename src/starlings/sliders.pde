@@ -69,14 +69,14 @@ class Slider {
     text(label, x-5, lowerY + 35);
  
     //get mouseInput and map it
-    float my = constrain(mouseY, initialY, height - h - initialY );
+    float my = constrain(mouseY, initialY, lowerY);
     if (lock) y = my;
 
     // Return the value
     return value;
   }
  
-  // is mouse ove knob?
+  // is mouse over knob?
   boolean isOver()
   {
     return (x+w >= mouseX) && (mouseX >= x) && (y+h >= mouseY) && (mouseY >= y);

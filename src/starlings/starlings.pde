@@ -50,11 +50,11 @@ void setup() {
   }
 
  // Initialise Sliders
- sliders[0] = new Slider(20, 20, 40, 20, "Seperation", 1.0f, 5.0f, 3.0f);
- sliders[1] = new Slider(90, 20, 40, 20, "Cohesion", 0.0f, 2.0f, 0.293f);
- sliders[2] = new Slider(160, 20, 40, 20, "Alignment", 0.0f, 0.5f, 0.02f);
- sliders[3] = new Slider(230, 20, 40, 20, "Avoidance", 0.0f, 1.0f, 0.05f);
- sliders[4] = new Slider(300, 20, 40, 20, "Noise",0.0f, 0.5f, 0.05f);
+ sliders[0] = new Slider(20, 20, 45, 20, "Seperation", 1.0f, 5.0f, 3.0f);
+ sliders[1] = new Slider(90, 20, 45, 20, "Cohesion", 0.0f, 2.0f, 0.293f);
+ sliders[2] = new Slider(160, 20, 45, 20, "Alignment", 0.0f, 0.5f, 0.02f);
+ sliders[3] = new Slider(230, 20, 45, 20, "Avoidance", 0.0f, 1.0f, 0.05f);
+ sliders[4] = new Slider(300, 20, 45, 20, "Noise",0.0f, 0.5f, 0.05f);
 
   // Add button for adding bird
   addBoidButton = new Button (simulationWidth + 40, height / 2 + 200, 200, 35, "Add Boid");
