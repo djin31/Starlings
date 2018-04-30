@@ -33,7 +33,7 @@ class Slider {
     high = _high;
     value = _initial;
 
-    lowerY = height - h - initialY;
+    lowerY = height / 2 - h - initialY;
     y = map(_initial, _low, _high, lowerY, initialY);
   }
 

@@ -12,7 +12,9 @@ class Button {
     color buttonColor;
     color buttonHighlight;
 
-    Button (int _buttonX, int _buttonY, int _buttonWidth, int _buttonHeight) {
+    String text;
+
+    Button (int _buttonX, int _buttonY, int _buttonWidth, int _buttonHeight, String _text) {
         buttonX = _buttonX;
         buttonY = _buttonY;
         buttonWidth = _buttonWidth;
@@ -20,6 +22,8 @@ class Button {
 
         buttonColor = color(20, 200, 100);
         buttonHighlight = color(10, 100, 50);
+
+        text = _text;
     }
 
     void draw() {
@@ -32,6 +36,11 @@ class Button {
         }
 
         rect(buttonX, buttonY, buttonWidth, buttonHeight);
+        fill(250, 250, 250);
+
+        textSize(18);
+        text(text, buttonX + 50, buttonY + 25);
+        textSize(12);
     }
 
     boolean isOver () {

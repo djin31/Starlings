@@ -29,10 +29,18 @@ int simulationWidth = 640;
 int simulationHeight = 360;
 int slidersWidth = 360;
 
-PGraphics simViewport, sliderViewport;
+// Measurements
+float averageVelocity;
+float averageAcceleration;
+float avgDispersionFromCOM;
+float totalPower;
+float avgPower;
+float avgAngMomentum;
 
 void setup() {
- size(1400, 860,P3D);
+ size(1000, 560,P3D);
+//  surface.setResizable(true); // Allow user to resize the window
+
  translate(420,180);
  top = color(153,255,255);
  bottom = color(175,238,238);
@@ -49,7 +57,7 @@ void setup() {
  sliders[4] = new Slider(300, 20, 40, 20, "Noise",0.0f, 0.5f, 0.05f);
 
   // Add button for adding bird
-  addBoidButton = new Button (150, 100, 50, 20);
+  addBoidButton = new Button (simulationWidth + 40, height / 2 + 200, 200, 35, "Add Boid");
 }
 
 void draw() {
@@ -66,17 +74,13 @@ void draw() {
   // Draw the buttons
   addBoidButton.draw();
 
-  // Print the Measurements each 100th frame for less computation
-  if (frameCount % 100 == 0) {
-    println(flock.size(),
-        flock.getAverageVelocity(),
-        flock.getAverageAcceleration(),
-        flock.avgDispersionFromCOM(),
-        flock.totalPower(),
-        flock.avgPower(),
-        flock.avgAngMomentum()
-        );
+  // Print the Measurements each 20th frame for less computation
+  if (frameCount % 20 == 0) {
+    updateMesurements();
   }
+
+  // Display the current measurements
+  displayMesurements();
 }
 
 // Add a new boid into the System
@@ -113,4 +117,45 @@ void setGradient(color c1, color c2 ) {
     stroke(c);
     line(0, i, width, i);
   }
+}
+
+void updateMesurements () {
+  averageVelocity = flock.getAverageVelocity();
+  averageAcceleration = flock.getAverageAcceleration();
+  avgDispersionFromCOM = flock.avgDispersionFromCOM();
+  totalPower = flock.totalPower();
+  avgPower = flock.avgPower();
+  avgAngMomentum = flock.avgAngMomentum();
+}
+
+void displayMesurements () {
+  // Displays various results of calculations at appropriate places
+
+  color name = color (#26466D);//#26466D	
+  color value = color (#1874CD);
+  
+  textSize(17);
+
+  // print the labels
+  fill(name);
+  text("Number of Birds:", simulationWidth, height / 2 + 40);
+  text("Average Velocity:", simulationWidth, height / 2 + 60);
+  text("Average Acceleration:", simulationWidth, height / 2 + 80);
+  text("Average Power:", simulationWidth, height / 2 + 100);
+  text("Total Power:", simulationWidth, height / 2 + 120);
+  text("Average Angular Momentum:", simulationWidth, height / 2 + 140);
+  text("Average Dispersion:", simulationWidth, height / 2 + 160);
+
+  // print the values
+  fill(value);
+  text(FLOCK_SIZE, simulationWidth + 150, height / 2 + 40);
+  text(averageVelocity, simulationWidth + 150, height / 2 + 60);
+  text(averageAcceleration, simulationWidth + 180, height / 2 + 80);
+  text(avgPower, simulationWidth + 150, height / 2 + 100);
+  text(totalPower, simulationWidth + 150, height / 2 + 120);
+  text(avgAngMomentum, simulationWidth + 240, height / 2 + 140);
+  text(avgDispersionFromCOM, simulationWidth + 180, height / 2 + 160);
+
+  // reset the text size
+  textSize(12);
 }
