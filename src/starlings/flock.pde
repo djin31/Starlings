@@ -4,7 +4,10 @@ class Flock {
  ArrayList<Boid> boids; // An ArrayList for all the boids
  PVector CoM;
  PVector oldCoM;
-
+ float normalised_vel = 8.94/FLIGHT_SPEED; //avg_bird speed = 20mph =8.94m/s
+ float mass = 0.075;
+ float acc_peak = 40;
+ 
  Flock() {
    boids = new ArrayList<Boid>(); // Initialize the ArrayList
    CoM = new PVector(0,0,0);
@@ -46,7 +49,7 @@ class Flock {
      avgVelocity += (b.velocity).mag();
    }
 
-   return avgVelocity / FLOCK_SIZE;
+   return normalised_vel*avgVelocity / FLOCK_SIZE;
  }
 
  float getAverageAcceleration () {
@@ -56,7 +59,7 @@ class Flock {
      avgAcceleration += b.acceleration.mag();
    }
 
-   return avgAcceleration / FLOCK_SIZE;
+   return acc_peak*avgAcceleration / (FLOCK_SIZE*MAX_FORCE);
  }
 
  float avgDispersionFromCOM () {
@@ -78,7 +81,7 @@ class Flock {
       totPower += b.acceleration.dot(b.velocity);
     }
 
-    return totPower;
+    return acc_peak*normalised_vel*totPower/MAX_FORCE;
   }
 
   float avgPower () {

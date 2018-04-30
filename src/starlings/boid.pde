@@ -40,6 +40,7 @@ class Boid {
     int count =0;
     for (int i= 0; i<FLOCK_SIZE; i++){
      if (distance[i]>0 && distance[i]<INFLUENCE_CIRCLE && count<INFLUENCE){
+       if (distance[i]<(INFLUENCE_CIRCLE*0.75))
        avg_v.add(boids.get(i).velocity);
        avg_r.add(boids.get(i).position);
        count++;
@@ -71,8 +72,12 @@ class Boid {
   // Method to update position
   void update() {
     
-    if (position.mag()>RADIUS_OF_CONFINEMENT)    //implements wall avoidance
-      PVector.mult(position,(-1.0f),velocity);
+    if (position.mag()>RADIUS_OF_CONFINEMENT){    //implements wall avoidance
+      PVector temp = new PVector(position.x,position.y,position.z);
+      temp.normalize();
+      temp.mult(AVOIDANCE_FACTOR);
+      velocity.sub(temp);
+    }
     else
       velocity.add(acceleration);
     if (velocity.mag()>0)

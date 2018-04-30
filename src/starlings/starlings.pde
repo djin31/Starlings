@@ -1,15 +1,14 @@
 Flock flock;
 
-float SCALE = 1.5; //scaling factor for boid
-float FLIGHT_SPEED = 1.2f;
+float SCALE = 1.2; //scaling factor for boid
+float FLIGHT_SPEED = 1.0f;  //for rendering
 float MAX_FORCE = 0.2f;
 float INFLUENCE = 7;
 float INFLUENCE_CIRCLE = 100.0f;
 float MIN_SEP = 50.0f;
-float RADIUS_OF_CONFINEMENT = 350.0f;
-
+float RADIUS_OF_CONFINEMENT = 300.0f;
 //Hyper parameters
-int INIT_FLOCK_SIZE =300;
+int INIT_FLOCK_SIZE = 400;
 int FLOCK_SIZE;
 float SEPARATION_FACTOR;
 float COHESION_FACTOR;
@@ -38,7 +37,7 @@ float avgPower;
 float avgAngMomentum;
 
 void setup() {
- size(1000, 560,P3D);
+ size(1000, 600,P3D);
 //  surface.setResizable(true); // Allow user to resize the window
 
  translate(420,180);
@@ -51,7 +50,7 @@ void setup() {
 
  // Initialise Sliders
  sliders[0] = new Slider(20, 20, 40, 20, "Seperation", 1.0f, 5.0f, 3.0f);
- sliders[1] = new Slider(90, 20, 40, 20, "Cohesion", 0.0f, 2.0f, 0.293f);
+ sliders[1] = new Slider(90, 20, 40, 20, "Cohesion", 0.0f, 2.0f, 0.2f);
  sliders[2] = new Slider(160, 20, 40, 20, "Alignment", 0.0f, 0.5f, 0.02f);
  sliders[3] = new Slider(230, 20, 40, 20, "Avoidance", 0.0f, 1.0f, 0.05f);
  sliders[4] = new Slider(300, 20, 40, 20, "Noise",0.0f, 0.5f, 0.05f);
@@ -65,9 +64,9 @@ void draw() {
  flock.runModel();
 
   // Run the sliders and update parameters
-  SEPARATION_FACTOR = sliders[0].run();
-  COHESION_FACTOR = sliders[1].run();
-  ALIGNMENT_FACTOR = sliders[2].run();
+  SEPARATION_FACTOR = sliders[0].run() + random(0.5) ;
+  COHESION_FACTOR = sliders[1].run() + random(0.1);
+  ALIGNMENT_FACTOR = sliders[2].run() + random(0.005);
   AVOIDANCE_FACTOR = sliders[3].run();
   NOISE_FACTOR = sliders[4].run();
 
@@ -120,7 +119,8 @@ void setGradient(color c1, color c2 ) {
 }
 
 void updateMesurements () {
-  averageVelocity = flock.getAverageVelocity();
+
+  averageVelocity = flock.getAverageVelocity();    
   averageAcceleration = flock.getAverageAcceleration();
   avgDispersionFromCOM = flock.avgDispersionFromCOM();
   totalPower = flock.totalPower();
