@@ -139,22 +139,22 @@ void displayMesurements () {
   // print the labels
   fill(name);
   text("Number of Birds:", simulationWidth, height / 2 + 40);
-  text("Average Velocity:", simulationWidth, height / 2 + 60);
+  text("Flight Speed:", simulationWidth, height / 2 + 60);
   text("Average Acceleration:", simulationWidth, height / 2 + 80);
   text("Average Power:", simulationWidth, height / 2 + 100);
-  text("Total Power:", simulationWidth, height / 2 + 120);
-  text("Average Angular Momentum:", simulationWidth, height / 2 + 140);
-  text("Average Dispersion:", simulationWidth, height / 2 + 160);
+  //text("Total Power:", simulationWidth, height / 2 + 120);
+  text("Average Angular Momentum:", simulationWidth, height / 2 + 120);
+  text("Average Dispersion:", simulationWidth, height / 2 + 140);
 
   // print the values
   fill(value);
-  text(FLOCK_SIZE, simulationWidth + 150, height / 2 + 40);
-  text(averageVelocity, simulationWidth + 150, height / 2 + 60);
-  text(averageAcceleration, simulationWidth + 180, height / 2 + 80);
-  text(avgPower, simulationWidth + 150, height / 2 + 100);
-  text(totalPower, simulationWidth + 150, height / 2 + 120);
-  text(avgAngMomentum, simulationWidth + 240, height / 2 + 140);
-  text(avgDispersionFromCOM, simulationWidth + 180, height / 2 + 160);
+  text(FLOCK_SIZE, simulationWidth + 240, height / 2 + 40);
+  text(averageVelocity, simulationWidth + 240, height / 2 + 60);
+  text(averageAcceleration, simulationWidth + 240, height / 2 + 80);
+  text(avgPower, simulationWidth + 240, height / 2 + 100);
+  //text(totalPower, simulationWidth + 240, height / 2 + 120);
+  text(avgAngMomentum, simulationWidth + 240, height / 2 + 120);
+  text(avgDispersionFromCOM, simulationWidth + 240, height / 2 + 140);
 
   // reset the text size
   textSize(12);

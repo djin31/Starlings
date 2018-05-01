@@ -70,7 +70,7 @@ class Flock {
      avgDispersion += (tmp.sub(CoM)).mag();
    }
 
-   return avgDispersion;
+   return avgDispersion/FLOCK_SIZE;
  }
 
   float totalPower () {
