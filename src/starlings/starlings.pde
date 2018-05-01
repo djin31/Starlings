@@ -17,6 +17,7 @@ float AVOIDANCE_FACTOR;
 float NOISE_FACTOR;
 
 color top,bottom;
+color up, down; // color of up down key symbols
 // Array to hold all the sliders
 Slider[] sliders = new Slider[5];
 
@@ -73,6 +74,9 @@ void draw() {
   // Draw the buttons
   addBoidButton.draw();
 
+  // Draw the up-down button
+  drawUpDownKeys();
+
   // Print the Measurements each 20th frame for less computation
   if (frameCount % 20 == 0) {
     updateMesurements();
@@ -80,6 +84,11 @@ void draw() {
 
   // Display the current measurements
   displayMesurements();
+
+  // Update the color every 5th frame
+  if (frameCount % 5 == 0) {
+    up = down = color(#006400);
+  }
 }
 
 // Add a new boid into the System
@@ -122,15 +131,26 @@ void setGradient(color c1, color c2 ) {
 void keyPressed () {
   if (key == CODED) {
     if (keyCode == UP) {
-      println("up");
+      up = color (#32CD32);
       FLIGHT_SPEED += 0.1;
     } else if (keyCode == DOWN) {
-      println("down");
       if (FLIGHT_SPEED > 0.3) { // A minimum speed
         FLIGHT_SPEED -= 0.1;
+        down = color (#32CD32);
       }
     }
   }
+}
+
+void drawUpDownKeys () {
+  fill(up);
+  rect(simulationWidth + 120, height / 2 + 250, 50, 20);
+  fill(down);
+  rect(simulationWidth + 120, height / 2 + 275, 50, 20);
+
+  fill(250, 250, 250);
+  text("Up", simulationWidth + 137, height / 2 + 265);
+  text("Down", simulationWidth + 130, height / 2 + 290);
 }
 
 void updateMesurements () {
