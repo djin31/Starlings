@@ -186,7 +186,7 @@ or, \begin{equation}
 P_i = m_i.\vec{a_i}\cdot\vec{v_i}
 \end{equation}
 
-The average power exerted by a typical bird of the flock is given by:
+The average power\footnote{This is the power exerted over and above the power exerted in wing flapping to keep afloat} exerted by a typical bird of the flock is given by:
 \begin{equation}
 P_{avg} = \frac{\sum_{i=1}^{n} P_i}{n}
 \end{equation}
@@ -213,7 +213,7 @@ The average magnitude of angular momentum of a bird is given by:
 \end{equation}
 
 \subsection*{Average Force}
-The force being withstood by a typical bird, $i$ given its mass $m_i$ and acceleration vector $a_i$ is given by:
+The force\footnote{This force is the extra force exerted by bird apart from the force expended against gravity and drag} being withstood by a typical bird, $i$ given its mass $m_i$ and acceleration vector $a_i$ is given by:
 \begin{equation}
 \vec{F_i} = m_i . \vec{a_i}
 \end{equation}
@@ -225,17 +225,17 @@ The average magnitude of force being experienced by a typical bird is given by:
 
 \chapter{Functional Specification}
 
-The model will be developed as an application, consiting mainly of the flow shown below. 
+%%The model will be developed as an application, consiting mainly of the flow shown below. 
 
-\begin{figure}[h]
-\centering
-\includegraphics[scale=0.9]{UserFlowDiagram}
-\caption{User Flow Diagram}
-\end{figure}
+%%\begin{figure}[h]
+%%\centering
+%%\includegraphics[scale=0.9]{UserFlowDiagram}
+%%\caption{User Flow Diagram}
+%%\end{figure}
 
 The boids will be simulated in 3D, according to the mathematical model as described in the previous chapter. The simulation is based on the real flocking behaviour of Starlings. The user will be shown the various scientific results of the simulation.
 
-\subsection*{Features}
+\section{Features}
 
 The simulation starts with display of an initial number of boids. These are simulated according to some default value of hyper-parameters. There is a spherical wall enclosing the simulation space, which acts like confinement area for the boids.
 
@@ -249,20 +249,18 @@ The user can interact with the simulation in multiple ways:
 \item Cohesion Factor
 \item Alignment Factor
 \item Noise Factor
-\item Speed of boids
-\item Maximum acceleration that the boids can produce
 \end{itemize} 
 
 \item Rotate the simulation view to be able to see the simulation from various angles.
 
 \end{itemize}
-
-\subsection*{Measurements}
-The user will be constantly be shown the following results. He / she can tweak the hyper-parameters to see how the simulation will appear and see the corresponding changes in the result values.
+\newpage
+\section{Measurements}
+The user will be constantly shown the following results. He / she can tweak the hyper-parameters to see how the simulation will appear and see the corresponding changes in the result values.
 \begin{itemize}
 \item \textbf{Power}: The power being consumed by an average bird as well as the power consumed by the complete flock at the particular instant of time.
 \item \textbf{Acceleration}: The average magnitude of acceleration being produced by each bird.
-\item \textbf{Energy}: The total energy consumed by an average bird from the start of the simulation.
+\item \textbf{Dispersion}: The dispersion of the flock from the centre of mass.
 \item \textbf{Angular Momentum}: The average magnitude of angular momentum of a typical bird.
 \end{itemize}
 
