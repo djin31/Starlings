@@ -6,7 +6,7 @@ float MAX_FORCE = 0.2f;
 float INFLUENCE = 7;
 float INFLUENCE_CIRCLE = 100.0f;
 float MIN_SEP = 50.0f;
-float RADIUS_OF_CONFINEMENT = 300.0f;
+float RADIUS_OF_CONFINEMENT = 350.0f;
 //Hyper parameters
 int INIT_FLOCK_SIZE = 400;
 int FLOCK_SIZE;
@@ -25,7 +25,7 @@ Button addBoidButton;
 
 // Define the dimensions of different areas
 int simulationWidth = 640;
-int simulationHeight = 360;
+int simulationHeight = 460;
 int slidersWidth = 360;
 
 // Measurements
@@ -37,7 +37,7 @@ float avgPower;
 float avgAngMomentum;
 
 void setup() {
- size(1000, 600,P3D);
+ size(displayWidth,displayHeight, P3D);
 //  surface.setResizable(true); // Allow user to resize the window
 
  translate(420,180);
@@ -49,14 +49,14 @@ void setup() {
   }
 
  // Initialise Sliders
- sliders[0] = new Slider(20, 20, 40, 20, "Seperation", 1.0f, 5.0f, 3.0f);
- sliders[1] = new Slider(90, 20, 40, 20, "Cohesion", 0.0f, 2.0f, 0.2f);
- sliders[2] = new Slider(160, 20, 40, 20, "Alignment", 0.0f, 0.5f, 0.02f);
- sliders[3] = new Slider(230, 20, 40, 20, "Avoidance", 0.0f, 1.0f, 0.05f);
- sliders[4] = new Slider(300, 20, 40, 20, "Noise",0.0f, 0.5f, 0.05f);
+ sliders[0] = new Slider(200, 20, 40, 20, "Seperation", 1.0f, 5.0f, 3.0f);
+ sliders[1] = new Slider(280, 20, 40, 20, "Cohesion", 0.0f, 2.0f, 0.2f);
+ sliders[2] = new Slider(360, 20, 40, 20, "Alignment", 0.0f, 0.5f, 0.02f);
+ sliders[3] = new Slider(440, 20, 40, 20, "Avoidance", 0.0f, 1.0f, 0.05f);
+ sliders[4] = new Slider(520, 20, 40, 20, "Noise",0.0f, 0.5f, 0.05f);
 
   // Add button for adding bird
-  addBoidButton = new Button (simulationWidth + 40, height / 2 + 200, 200, 35, "Add Boid");
+  addBoidButton = new Button (simulationWidth + 240, height / 2 + 200, 200, 35, "Add Boid");
 }
 
 void draw() {
@@ -138,23 +138,23 @@ void displayMesurements () {
 
   // print the labels
   fill(name);
-  text("Number of Birds:", simulationWidth, height / 2 + 40);
-  text("Average Velocity:", simulationWidth, height / 2 + 60);
-  text("Average Acceleration:", simulationWidth, height / 2 + 80);
-  text("Average Power:", simulationWidth, height / 2 + 100);
-  text("Total Power:", simulationWidth, height / 2 + 120);
-  text("Average Angular Momentum:", simulationWidth, height / 2 + 140);
-  text("Average Dispersion:", simulationWidth, height / 2 + 160);
+  text("Number of Birds:", simulationWidth+200, height / 2 + 40);
+  text("Flight Speed:", simulationWidth+200, height / 2 + 60);
+  text("Average Acceleration:", simulationWidth+200, height / 2 + 80);
+  text("Average Power:", simulationWidth+200, height / 2 + 100);
+  //text("Total Power:", simulationWidth, height / 2 + 120);
+  text("Average Angular Momentum:", simulationWidth+200, height / 2 + 120);
+  text("Average Dispersion:", simulationWidth+200, height / 2 + 140);
 
   // print the values
   fill(value);
-  text(FLOCK_SIZE, simulationWidth + 150, height / 2 + 40);
-  text(averageVelocity, simulationWidth + 150, height / 2 + 60);
-  text(averageAcceleration, simulationWidth + 180, height / 2 + 80);
-  text(avgPower, simulationWidth + 150, height / 2 + 100);
-  text(totalPower, simulationWidth + 150, height / 2 + 120);
-  text(avgAngMomentum, simulationWidth + 240, height / 2 + 140);
-  text(avgDispersionFromCOM, simulationWidth + 180, height / 2 + 160);
+  text(FLOCK_SIZE, simulationWidth + 440, height / 2 + 40);
+  text(averageVelocity, simulationWidth + 440, height / 2 + 60);
+  text(averageAcceleration, simulationWidth + 440, height / 2 + 80);
+  text(avgPower, simulationWidth + 440, height / 2 + 100);
+  //text(totalPower, simulationWidth + 150, height / 2 + 120);
+  text(avgAngMomentum, simulationWidth + 440, height / 2 + 120);
+  text(avgDispersionFromCOM, simulationWidth + 440, height / 2 + 140);
 
   // reset the text size
   textSize(12);
