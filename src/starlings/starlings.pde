@@ -118,6 +118,21 @@ void setGradient(color c1, color c2 ) {
   }
 }
 
+// Key Handler
+void keyPressed () {
+  if (key == CODED) {
+    if (keyCode == UP) {
+      println("up");
+      FLIGHT_SPEED += 0.1;
+    } else if (keyCode == DOWN) {
+      println("down");
+      if (FLIGHT_SPEED > 0.3) { // A minimum speed
+        FLIGHT_SPEED -= 0.1;
+      }
+    }
+  }
+}
+
 void updateMesurements () {
 
   averageVelocity = flock.getAverageVelocity();    

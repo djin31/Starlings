@@ -78,7 +78,7 @@ class Flock {
     // P = F.v
     float totPower = 0;
     for (Boid b:boids) {
-      totPower += b.acceleration.dot(b.velocity);
+      totPower += abs(b.acceleration.dot(b.velocity));
     }
 
     return acc_peak*normalised_vel*totPower/MAX_FORCE;
