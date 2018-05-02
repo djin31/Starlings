@@ -1,10 +1,10 @@
 # Starlings
 Simulation of Starlings Murmurations using Boids
 
+## Documentation:
+Find the documentation for the project in the doc folder
 
 ## Running the code:
-To simply run an out-of-the-box aplication open the relevant application folder and click on the exe or run the executable binary.
-
 To run from the source :
 ```
 You need to have Processing3 installed in your system.
@@ -21,3 +21,4 @@ The user is provided with numerous ways to interact with the simulation and obse
 2. Add new boids to the simulation on click of a button. New boids are initialised at random locations.  
 3. Increase / Decrease the speed of the boids with keyboard up / down arrows.  
 4. Observe various real-time measurements like power, angular momentum and acceleration of the boids while changing parameters.
+
