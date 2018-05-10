@@ -1,5 +1,7 @@
 # Starlings
-Simulation of Starlings Murmurations using Boids
+This project aims to simulate the Starlings Murmuration and study the effect of varying parameters on the motion.
+The model is inspired from the boid model developed by Craig Reynolds. It also attempts to incorporate a few features from the model developed by Hildenbrandt
+and Hemelrijk
 
 ## Documentation:
 Find the documentation for the project in the doc folder
